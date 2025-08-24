@@ -1,54 +1,30 @@
 'use client';
 
-import { Plate, usePlateEditor } from 'platejs/react';
-
-import { BasicNodesKit } from '@src/components/editor/plugins/basic-nodes-kit';
+import type { RefObject } from 'react';
 import { Editor, EditorContainer } from '@src/components/ui/editor';
+import { useEditor } from '@src/components/editor/plugins/editor-kit';
 
-export function PlateEditor() {
-  const editor = usePlateEditor({
-    plugins: BasicNodesKit,
-    value,
-  });
-
-  return (
-    <Plate editor={editor}>
-      <EditorContainer>
-        <Editor variant="demo" placeholder="Type..." />
-      </EditorContainer>
-    </Plate>
-  );
+interface PlateEditorProps {
+  editorRef?: RefObject<HTMLDivElement>;
 }
 
-const value = [
-  {
-    children: [{ text: 'Basic Editor' }],
-    type: 'h1',
-  },
-  {
-    children: [{ text: 'Heading 2' }],
-    type: 'h2',
-  },
-  {
-    children: [{ text: 'Heading 3' }],
-    type: 'h3',
-  },
-  {
-    children: [{ text: 'This is a blockquote element' }],
-    type: 'blockquote',
-  },
-  {
-    children: [
-      { text: 'Basic marks: ' },
-      { bold: true, text: 'bold' },
-      { text: ', ' },
-      { italic: true, text: 'italic' },
-      { text: ', ' },
-      { text: 'underline', underline: true },
-      { text: ', ' },
-      { strikethrough: true, text: 'strikethrough' },
-      { text: '.' },
-    ],
-    type: 'p',
-  },
-];
+/**
+ * Renders the editor surface and attaches an optional container ref.
+ *
+ * Calls the editor hook to ensure an existing editor instance is available, then
+ * renders an EditorContainer (with `className="editor-inner"`) containing an
+ * Editor configured with `variant="fullWidth"`.
+ *
+ * @param editorRef - Optional ref that will be attached to the editor container DOM element.
+ * @returns The editor component tree to be mounted in the React tree.
+ */
+export function PlateEditor({ editorRef }: PlateEditorProps) {
+  // Access existing editor instance
+  useEditor();
+
+  return (
+    <EditorContainer ref={editorRef} className="editor-inner">
+      <Editor variant="fullWidth" />
+    </EditorContainer>
+  );
+}

@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
-import useStore from '@store/store';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import useStore from '@store/store';
 import Document from '@components/Document/Document';
 import DocumentMenu from '@components/Menu/DocumentMenu';
 import AIMenu from '@components/Menu/AIMenu/AIMenu';
+import { DocumentPlate } from '@components/Document/DocumentPlate';
 
 import useInitialiseNewDocument from '@hooks/useInitialiseNewDocument';
 import { DocumentInterface } from '@type/document';
@@ -13,6 +15,13 @@ import Toast from '@components/Toast';
 import { HealthStatus } from '@components/Health';
 import FAQs from '@components/FAQs/FAQs';
 
+/**
+ * Root React component that initializes app state, performs legacy localStorage migration, and renders the main routes.
+ *
+ * Performs two startup effects: (1) clears the `edited` flag on any existing chats in the global store, and (2) migrates legacy keys from localStorage (old `chats`, `apiKey`, and `theme`) into the current store or falls back to creating a new document. Also ensures the current chat index is valid after initialization.
+ *
+ * Renders the home UI (DocumentMenu, Document wrapped in DocumentPlate with AIMenu, ApiPopup, Toast) at the "/" route and the FAQs page at "/faqs". In development mode, shows a floating HealthStatus panel.
+ */
 function App() {
   const initialiseNewDocument = useInitialiseNewDocument();
   const setChats = useStore(state => state.setChats);
@@ -33,13 +42,6 @@ function App() {
       useStore.getState().setChats(newChats);
     }
   }, []);
-
-  // useEffect(() => {
-  //    document.documentElement.lang = i18n.language;
-  //   i18n.on('languageChanged', (lng) => {
-  //     document.documentElement.lang = lng;
-  //   });
-  // }, []);
 
   useEffect(() => {
     // legacy local storage
@@ -91,8 +93,10 @@ function App() {
     return (
       <>
         <DocumentMenu />
-        <Document />
-        <AIMenu />
+        <DocumentPlate>
+          <Document />
+          <AIMenu />
+        </DocumentPlate>
         <ApiPopup />
         <Toast />
         {/* Health Status - Development only */}
