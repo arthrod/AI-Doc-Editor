@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
-import useStore from '@store/store';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import useStore from '@store/store';
 import Document from '@components/Document/Document';
 import DocumentMenu from '@components/Menu/DocumentMenu';
 import AIMenu from '@components/Menu/AIMenu/AIMenu';
+import { DocumentPlate } from '@components/Document/DocumentPlate';
 
 import useInitialiseNewDocument from '@hooks/useInitialiseNewDocument';
 import { DocumentInterface } from '@type/document';
@@ -33,13 +35,6 @@ function App() {
       useStore.getState().setChats(newChats);
     }
   }, []);
-
-  // useEffect(() => {
-  //    document.documentElement.lang = i18n.language;
-  //   i18n.on('languageChanged', (lng) => {
-  //     document.documentElement.lang = lng;
-  //   });
-  // }, []);
 
   useEffect(() => {
     // legacy local storage
@@ -91,8 +86,10 @@ function App() {
     return (
       <>
         <DocumentMenu />
-        <Document />
-        <AIMenu />
+        <DocumentPlate>
+          <Document />
+          <AIMenu />
+        </DocumentPlate>
         <ApiPopup />
         <Toast />
         {/* Health Status - Development only */}
