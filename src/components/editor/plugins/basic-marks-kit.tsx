@@ -11,6 +11,12 @@ import {
   SuperscriptPlugin,
   UnderlinePlugin,
 } from '@platejs/basic-nodes/react';
+import {
+  FontFamilyPlugin,
+  FontSizePlugin,
+  FontColorPlugin,
+  FontBackgroundColorPlugin,
+} from '@platejs/basic-styles/react';
 
 import { CodeLeaf } from '@src/components/ui/code-node';
 import { HighlightLeaf } from '@src/components/ui/highlight-node';
@@ -38,4 +44,9 @@ export const BasicMarksKit = [
     shortcuts: { toggle: { keys: 'mod+shift+h' } },
   }),
   KbdPlugin.withComponent(KbdLeaf),
+  // Font styling plugins
+  FontFamilyPlugin,
+  FontSizePlugin,
+  FontColorPlugin,
+  FontBackgroundColorPlugin,
 ];
