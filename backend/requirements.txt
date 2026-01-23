@@ -37,3 +37,4 @@ pytest-asyncio==0.23.8
 # CORS
 # NOTE: fastapi-cors is unmaintained. Consider migrating to FastAPI's built-in CORSMiddleware.
 fastapi-cors==0.0.6
+pyasn1>=0.6.2 # not directly required, pinned by Snyk to avoid a vulnerability
