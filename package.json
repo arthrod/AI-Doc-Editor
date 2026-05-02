@@ -157,7 +157,7 @@
     "uploadthing": "7.2.0",
     "use-file-picker": "^2.1.4",
     "use-stick-to-bottom": "^1.1.1",
-    "uuid": "^9.0.0",
+    "uuid": "^14.0.0",
     "vaul": "^1.1.2",
     "yjs": "^13.6.6",
     "zod": "^4.1.0",
