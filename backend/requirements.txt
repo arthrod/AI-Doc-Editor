@@ -4,7 +4,7 @@
 # Core FastAPI
 fastapi==0.111.1
 uvicorn[standard]==0.30.3
-python-multipart==0.0.9
+python-multipart==0.0.31
 
 # Authentication & JWT
 python-jose[cryptography]==3.4.0
